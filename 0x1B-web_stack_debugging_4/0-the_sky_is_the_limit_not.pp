@@ -1,12 +1,13 @@
-# Elevate the ULIMIT value for the default file
+# Enhances the capacity of an Nginx server to manage higher levels of incoming traffic.
 
-exec {'adjust--for-nginx':
-  command => 'sed -i"s/15/4096/" /etc/default/nginx',
-  path => '/usr/local/bin/:/bin/'
+# Elevate the ULIMIT value for the default file
+exec { 'fix--for-nginx':
+  command => 'sed -i "s/15/4096/" /etc/default/nginx',
+  path    => '/usr/local/bin/:/bin/'
 } ->
 
-# Reboot Nginx to apply changes
-exec {'restart-nginx':
+# Restart Nginx
+exec { 'nginx-restart':
   command => 'nginx restart',
-  path => '/etc/init.d/'
+  path    => '/etc/init.d/'
 }
